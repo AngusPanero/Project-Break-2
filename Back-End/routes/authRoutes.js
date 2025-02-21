@@ -1,4 +1,5 @@
 const express = require("express");
+const Product = require("../models/Product");
 const admin = require("firebase-admin");
 const auth = admin.auth();
 const path = require("path");
@@ -30,7 +31,7 @@ router.get("/login", (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
-    console.log("DATOS RECIBIDS LOGIN - REQ", req.body);
+    console.log("DATOS RECIBIDOS LOGIN - REQ", req.body);
     
     const { idToken } = req.body;
 

@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAqfx67W2zD7grSXqmZ0XPykGaRvbX2kyw",
@@ -23,12 +24,12 @@ const login = async (evento) => {
         const password = document.getElementById("password").value;
         console.log(email, password);
         
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+        const userCredential = await signInWithEmailAndPassword(auth, email, password)
+        const user = userCredential.user
         console.log("USER", user);
         
         const idToken = await user.getIdToken()
-        console.log("TOKEEEEEEEEEEEEN", idToken);
+        console.log("TOKEN", idToken);
 
         if (!idToken) {
             console.error("El idToken está vacío o no se ha generado correctamente.");
@@ -40,7 +41,7 @@ const login = async (evento) => {
             headers: { 
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ idToken }) // Asegurar que se envíe como JSON
+            body: JSON.stringify({ email, password, idToken }) // Asegurar que se envíe como JSON
         });
 
         const data = await response.json()
