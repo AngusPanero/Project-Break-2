@@ -32,4 +32,52 @@ routerProduct.get("/create", async (req, res) => {
     }
 })
 
+routerProduct.get("/id/:_id", async (req, res) => { // Get a Post??
+    try {
+        const id = await Product.findById(req.params._id)
+        res.status(200).send(id);
+
+        if(!id){
+            console.error("ERROR", error);
+        res.status(404).send({ Mensaje: "404 - ID no Encontrado" })
+        }
+
+    } catch(error) {
+        console.error("ERROR", error);
+        res.status(500).send({ Mensaje: "500 - Error Interno" })
+    }
+})
+
+routerProduct.put("/update/:_id", async (req, res) => { 
+    try {
+        const updateProduct = await Product.findByIdAndUpdate(req.params._id, req.body, { new: true })
+        res.status(200).send(updateProduct);
+
+        if(!updateProduct){
+            console.error("ERROR", error);
+        res.status(404).send({ Mensaje: "404 - ID no Encontrado" })
+        }
+
+    } catch(error) {
+        console.error("ERROR", error);
+        res.status(500).send({ Mensaje: "500 - Error Interno" })
+    }
+})
+
+routerProduct.delete("/delete/:_id", async (req, res) => { 
+    try {
+        const deleteProduct = await Product.findByIdAndDelete(req.params._id)
+        res.status(200).send(deleteProduct);
+        
+        if(!deleteProduct){
+            console.error("ERROR", error);
+        res.status(404).send({ Mensaje: "404 - ID no Encontrado" })
+        }
+
+    } catch(error) {
+        console.error("ERROR", error);
+        res.status(500).send({ Mensaje: "500 - Error Interno" })
+    }
+})
+
 module.exports = routerProduct
