@@ -12,7 +12,8 @@ router.get("/register", (req, res) => {
 
 router.post("/register", async (req, res) => {
     const { email, password } = req.body;
-
+    console.log(req.body);
+    
     try{
         await auth.createUser({
             email,

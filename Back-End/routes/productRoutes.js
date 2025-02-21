@@ -28,7 +28,28 @@ routerProduct.get("/create", async (req, res) => {
 
     } catch (error) {
         console.error("ERROR", error);
-        res.status(404).send({ Message: "500 - Página no Encontrada" });
+        res.status(404).send({ message: "500 - Página no Encontrada" });
+    }
+})
+
+routerProduct.get("/id", async (req, res) => {
+    try {
+        const productos = await Product.find(); // Busca todos los productos en la DB
+        res.status(200).json(productos);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ Message: "500 - Error en la Solicitud" });
+    }
+})
+
+routerProduct.get("/id-html", async (req, res) => {
+    try {
+        res.sendFile(path.join(__dirname, "../../Front-End", "updateProduct.html"))
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ Message: "500 - Error en la Solicitud" });
     }
 })
 
@@ -50,14 +71,14 @@ routerProduct.get("/id/:_id", async (req, res) => { // Get a Post??
 
 routerProduct.put("/update/:_id", async (req, res) => { 
     try {
-        const updateProduct = await Product.findByIdAndUpdate(req.params._id, req.body, { new: true })
-        res.status(200).send(updateProduct);
+        console.log("REQ BODY PUT", req.body);
 
-        if(!updateProduct){
-            console.error("ERROR", error);
-        res.status(404).send({ Mensaje: "404 - ID no Encontrado" })
-        }
-
+        const product = await Product.findByIdAndUpdate(req.params._id, {
+            titulo: req.body.titulo,
+            categoria: req.body.categoria,
+            precio: req.body.precio
+        }, { new: true })
+        res.redirect("/id-html")
     } catch(error) {
         console.error("ERROR", error);
         res.status(500).send({ Mensaje: "500 - Error Interno" })
@@ -67,13 +88,12 @@ routerProduct.put("/update/:_id", async (req, res) => {
 routerProduct.delete("/delete/:_id", async (req, res) => { 
     try {
         const deleteProduct = await Product.findByIdAndDelete(req.params._id)
-        res.status(200).send(deleteProduct);
         
         if(!deleteProduct){
             console.error("ERROR", error);
         res.status(404).send({ Mensaje: "404 - ID no Encontrado" })
         }
-
+        res.redirect("/id-html")
     } catch(error) {
         console.error("ERROR", error);
         res.status(500).send({ Mensaje: "500 - Error Interno" })

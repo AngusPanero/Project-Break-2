@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Producto</title>
+</head>
+<body>
+    <h1>Todos los Productos</h1>
+    <main>
+        <div id="cargarProductosHTML">
+        </div>
+
+        <div id="updateProductosHTML">
+        </div>
+    </main>
+
+<script>
+        const cargarProductos = async () => {
+            try {
+                const response = await fetch("/id");
+
+                if(!response.ok){
+                    throw new Error(`Error en la Petición`, Error)
+                }
+                const data = await response.json()
+                console.log("DATA", data);
+                
+                const HTML = document.getElementById("cargarProductosHTML");
+
+            data.forEach((p) => HTML.innerHTML+=`
+                <div class="cadaProductoId"> 
+                    <p><strong>ID:</strong> ${p._id}</p>      
+                    <p><strong>Producto:</strong> ${p.titulo}</p>
+                    <p><strong>Categoría:</strong> ${p.categoria}</p>
+                    <p><strong>Precio:</strong> $${p.precio}</p>
+                    <button class="editar">Editar Producto</button>
+                    <button class="eliminar">Eliminar Producto</button>
+                </div>`)
+                
+            }catch(error) {
+                throw new Error(`Error en la Solicitud`)
+            }
+        }
+        document.addEventListener("DOMContentLoaded", cargarProductos);
+        
+        document.addEventListener("click", async (evento) => {
+            if(evento.target.classList.contains("editar")){
+                const targetCont = evento.target.closest(".cadaProductoId")
+                const id = targetCont.querySelector("p:nth-of-type(1)").textContent.replace("ID: ", "").trim()
+
+                const productoEvento = { id, titulo, categoria, precio } 
+                console.log(productoEvento);
+
+                const HTML = document.getElementById("updateProductosHTML");
+                HTML.innerHTML = `<br><br><br><br>
+                <div class="update">
+                    <form action="/update/${id}" id="updateForm" method="post">
+                        <input type="text" name="titulo" id="titulo" placeholder="Nuevo Título del Producto" required>
+                        <input type="text" name="categoria" id="categoria" placeholder="Nueva Categoría del Producto" required>
+                        <input type="number" name="precio" id="precio" placeholder="Nuevo Precio del Producto" required>
+                        <button type="submit" id="productSubmit">Actualizar Producto</button>
+                    </form>
+                </div>    
+                `
+                
+        document.getElementById("updateForm").addEventListener("submit", async (e) => {
+            e.preventDefault(); // Evitar recarga de página
+
+            const nuevoTitulo = document.getElementById("titulo").value.trim();
+            const nuevaCategoria = document.getElementById("categoria").value.trim();
+            const nuevoPrecio = parseFloat(document.getElementById("precio").value.trim());
+
+            console.log(nuevaCategoria, nuevoPrecio, nuevoTitulo);
+            
+
+                try {
+                    const response = await fetch(`/update/${productoEvento.id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ titulo: nuevoTitulo, categoria: nuevaCategoria, precio: nuevoPrecio }) 
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error("Error en la Solicitud");
+                    }
+
+                    const data = await response.json();
+                    alert(data.message);
+                    
+                    cargarProductos();
+
+                } catch (error) {
+                    console.error("Error en la Solicitud:", error);
+                }
+            })}
+        })
+        
+        document.addEventListener("click", async (evento) => {
+            if(evento.target.classList.contains("eliminar")){
+                const targetCont = evento.target.closest(".cadaProductoId")
+                const id = targetCont.querySelector("p:nth-of-type(1)").textContent.replace("ID: ", "").trim()
+
+                try {
+                    const response = await fetch(`/delete/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ id }) 
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error("Error en la Solicitud");
+                    }
+
+                    const data = await response.json();                
+                    cargarProductos();
+
+                } catch (error) {
+                    console.error("Error en la Solicitud:", error);
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>
