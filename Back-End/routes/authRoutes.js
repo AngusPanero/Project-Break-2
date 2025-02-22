@@ -2,6 +2,7 @@ const express = require("express");
 const Product = require("../models/Product");
 const admin = require("firebase-admin");
 const auth = admin.auth();
+const checkAuth = require("../middlewares/authMiddleware");
 const path = require("path");
 const router = express.Router();
 require("dotenv").config()
@@ -49,7 +50,7 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", checkAuth ,(req, res) => {
     res.sendFile(path.join(__dirname, "../../Front-End", "dashboard.html"))
 })
 

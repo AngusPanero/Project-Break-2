@@ -3,11 +3,12 @@ const Product = require("../models/Product");
 const admin = require("firebase-admin");
 const auth = admin.auth();
 const path = require("path");
+const checkAuth = require("../middlewares/authMiddleware");
 const { log } = require("console");
 const routerProduct = express.Router();
 require("dotenv").config()
 
-routerProduct.post("/create", async (req, res) => {
+routerProduct.post("/create", checkAuth, async (req, res) => {
     try {
         console.log(req.body);
         const product = await Product.create({
@@ -22,7 +23,7 @@ routerProduct.post("/create", async (req, res) => {
     }
 })
 
-routerProduct.get("/create", async (req, res) => {
+routerProduct.get("/create", checkAuth, async (req, res) => {
     try {
         res.sendFile(path.join(__dirname, "../../Front-End", "createProduct.html"))
 
@@ -32,7 +33,7 @@ routerProduct.get("/create", async (req, res) => {
     }
 })
 
-routerProduct.get("/id", async (req, res) => {
+routerProduct.get("/id", checkAuth, async (req, res) => {
     try {
         const productos = await Product.find(); // Busca todos los productos en la DB
         res.status(200).json(productos);
@@ -43,7 +44,7 @@ routerProduct.get("/id", async (req, res) => {
     }
 })
 
-routerProduct.get("/id-html", async (req, res) => {
+routerProduct.get("/id-html", checkAuth, async (req, res) => {
     try {
         res.sendFile(path.join(__dirname, "../../Front-End", "updateProduct.html"))
 
@@ -53,7 +54,7 @@ routerProduct.get("/id-html", async (req, res) => {
     }
 })
 
-routerProduct.get("/id/:_id", async (req, res) => { // Get a Post??
+routerProduct.get("/id/:_id", checkAuth, async (req, res) => { // Get a Post??
     try {
         const id = await Product.findById(req.params._id)
         res.status(200).send(id);
@@ -69,7 +70,7 @@ routerProduct.get("/id/:_id", async (req, res) => { // Get a Post??
     }
 })
 
-routerProduct.put("/update/:_id", async (req, res) => { 
+routerProduct.put("/update/:_id", checkAuth, async (req, res) => { 
     try {
         console.log("REQ BODY PUT", req.body);
 
@@ -85,7 +86,7 @@ routerProduct.put("/update/:_id", async (req, res) => {
     }
 })
 
-routerProduct.delete("/delete/:_id", async (req, res) => { 
+routerProduct.delete("/delete/:_id", checkAuth, async (req, res) => { 
     try {
         const deleteProduct = await Product.findByIdAndDelete(req.params._id)
         
