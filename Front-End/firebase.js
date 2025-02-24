@@ -17,20 +17,15 @@ const auth = getAuth(app);
 
     const login = async (evento) => {
         evento.preventDefault();
-        console.log("estoy arriba");
         
         try{
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-            console.log(email, password);
-            console.log("AUTH", auth);
     
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            console.log("USER", user);
             
             const idToken = await user.getIdToken()
-            console.log("TOKEEEEEEEEEEEEN", idToken);
     
             if (!idToken) {
                 console.error("El idToken está vacío o no se ha generado correctamente.");
@@ -46,7 +41,6 @@ const auth = getAuth(app);
             });
     
             const data = await response.json()
-            console.log("DATA", data)
     
             if (!response.ok) {
                 console.error("Error en login:", data.error.message);

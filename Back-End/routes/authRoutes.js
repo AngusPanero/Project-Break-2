@@ -2,61 +2,22 @@ const express = require("express");
 const Product = require("../models/Product");
 const admin = require("firebase-admin");
 const auth = admin.auth();
+const authController = require("../controllers/authController")
 const checkAuth = require("../middlewares/authMiddleware");
 const path = require("path");
 const router = express.Router();
 require("dotenv").config()
 
-router.get("/register", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../Front-End", "register.html"))
-})
+router.get("/register", authController.registerView)
 
-router.post("/register", async (req, res) => {
-    const { email, password } = req.body;
-    console.log(req.body);
-    
-    try{
-        await auth.createUser({
-            email,
-            password
-        })
-    res.redirect("/login")
+router.post("/register", authController.register)
 
-    } catch(error) {
-        console.error("Error en el Registro", error);
-        res.redirect("/register")
-    }
-})
+router.get("/login", authController.loginView)
 
-router.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../Front-End", "login.html"))
-})
+router.post("/login", authController.login)
 
-router.post("/login", async (req, res) => {
-    console.log("DATOS RECIBIDOS LOGIN - REQ", req.body);
-    
-    const { idToken } = req.body;
+router.get("/dashboard", checkAuth, authController.dashboardView)
 
-    if (!idToken) {
-        return res.status(400).json({ success: false, message: 'Token no proporcionado' });
-    }
-
-    try{
-        await auth.verifyIdToken(idToken)
-        res.cookie("token", idToken, { httpOnly: true, secure: false }); //secure en false pq estamos en desarrollo en produ(https true) y httpOnly true para que nadie pueda acceder a nuestra cookie, solo quien este en nuestro navegador
-        res.json({ success: true })
-    }catch(error) {
-        res.status(401).json({ success: false, message: "Token inválido" });
-    }
-})
-
-router.get("/dashboard", checkAuth ,(req, res) => {
-    res.sendFile(path.join(__dirname, "../../Front-End", "dashboard.html"))
-})
-
-router.post('/logout', (req, res) => {
-    res.clearCookie('token')
-    res.redirect('/login')
-})
+router.post('/logout', authController.logout)
 
 module.exports = router;

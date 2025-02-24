@@ -1,5 +1,6 @@
 const express = require("express")
 const { dbConnection } = require("./config/db");
+const productController = require("./controllers/productController");
 const path = require("path")
 const admin = require("firebase-admin")
 const userService = require("./services/userService")
