@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Project Break 2 - Adidas</title>
 </head>
 <body>
     <body>
@@ -18,7 +18,7 @@
     
             <div class="navMenu">
                 <ul class="navUl">
-                    <a href="./dashboard.html"><li class="navLi">Inicio</li></a>
+                    <a href="./productos.html"><li class="navLi">Productos</li></a>
                     <a href="./camisetas.html"><li class="navLi">Camisetas</li></a>
                     <a href="./pantalones.html"><li class="navLi">Pantalones</li></a>
                     <a href="./botines.html"><li class="navLi">Botines</li></a>
@@ -66,10 +66,7 @@
                         HTML.innerHTML += `
                             <div class="cadaProductoId"> 
                                 <p><strong>ID:</strong> ${p._id}</p>
-                                <div class="botonesUpdate">
-                                    <a href="./id-html"><button class="editar">Editar</button></a>
-                                    <a href="./id-html"><button class="eliminar">Eliminar</button></a>
-                                </div>
+                        
                                 <img class="imgUpdate" src="${p.url}" alt="fotoProducto">      
                                 <p>${p.titulo}</p>
                                 <p>${p.categoria}</p>
