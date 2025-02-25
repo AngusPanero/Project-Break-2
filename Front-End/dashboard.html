@@ -3,12 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <form action="/logout" method="post">
-        <button type="submit">Logout</button>
-    </form>
+    <nav class="nav">
+        <div class="logo">
+            <p>Logo</p><!--Acá el Logo-->
+        </div>
+
+        <div class="navMenu">
+            <ul class="navUl">
+                <li class="navLi">Inicio</li>
+                <li class="navLi">Camisetas</li>
+                <li class="navLi">Pantalones</li>
+                <li class="navLi">Botines</li>
+            </ul>
+        </div>
+
+        <div class="logout">
+            <p>Editar</p>
+            <form action="/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Registrate Para Conocer Nuestro Catálogo</h1>
+        <!--Loop de Imagenes-->
+    </main>
+    
+    <footer>
+        <!--Logos de Marcas en Grises-->
+    </footer>
+
+    <script>
+        const imagenesDeFondo = [
+            "./img/banner/copa.jpg",
+            "./img/banner/banner2-alrihla.jpg",
+            "./img/banner/botines.jpg"
+            ];
+
+        let indiceActual = 0;
+
+        const funcionCambiarFondo = () => {
+            const mainElement = document.querySelector("main");
+            mainElement.style.backgroundImage = `url(${imagenesDeFondo[indiceActual]})`;
+
+            indiceActual = (indiceActual + 1) % imagenesDeFondo.length;
+            };
+
+        funcionCambiarFondo();
+        setInterval(funcionCambiarFondo, 6000);
+    </script>
+
 </body>
 </html>

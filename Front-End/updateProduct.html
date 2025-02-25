@@ -3,17 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
     <title>Nuevo Producto</title>
 </head>
 <body>
-    <h1>Todos los Productos</h1>
+    <nav>
+        <div class="logo">
+            <!--Acá el Logo-->
+        </div>
+
+        <div class="navMenu">
+            <ul class="navUl">
+                <li class="navLi">Inicio</li>
+                <li class="navLi">Camisetas</li>
+                <li class="navLi">Pantalones</li>
+                <li class="navLi">Botines</li>
+            </ul>
+        </div>
+        
+
+        <div class="logout">
+            <form action="/logout" method="post">
+                <button class="boton" type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>  
+    
     <main>
+        <h1>Editar Productos</h1>
+        <div>
+            <button class="boton">Crear Producto</button>
+        </div>
+
         <div id="cargarProductosHTML">
         </div>
 
         <div id="updateProductosHTML">
         </div>
     </main>
+
+    <footer>
+        <!--Logos de Marcas en Grises-->
+    </footer>
 
 <script>
         const cargarProductos = async () => {
@@ -50,7 +81,6 @@
                 const id = targetCont.querySelector("p:nth-of-type(1)").textContent.replace("ID: ", "").trim()
 
                 const productoEvento = { id } 
-                console.log(productoEvento);
 
                 const HTML = document.getElementById("updateProductosHTML");
                 HTML.innerHTML = `<br><br><br><br>
@@ -70,9 +100,6 @@
             const nuevoTitulo = document.getElementById("titulo").value.trim();
             const nuevaCategoria = document.getElementById("categoria").value.trim();
             const nuevoPrecio = parseFloat(document.getElementById("precio").value.trim());
-
-            console.log(nuevaCategoria, nuevoPrecio, nuevoTitulo);
-            
 
                 try {
                     const response = await fetch(`/update/${productoEvento.id}`, {
