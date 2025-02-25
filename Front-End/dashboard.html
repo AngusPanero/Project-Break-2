@@ -12,20 +12,20 @@
 <body>
     <nav class="nav">
         <div class="logo">
-            <p>Logo</p><!--Acá el Logo-->
+            <a href="./dashboard.html"><img class="logoAdidas" src="./img/Logo/Adidas_Logo.svg" alt="logo"></a>
         </div>
 
         <div class="navMenu">
             <ul class="navUl">
-                <li class="navLi">Inicio</li>
-                <li class="navLi">Camisetas</li>
-                <li class="navLi">Pantalones</li>
-                <li class="navLi">Botines</li>
+                <a href="./dashboard.html"><li class="navLi">Inicio</li></a>
+                <a href="./camisetas.html"><li class="navLi">Camisetas</li></a>
+                <a href="./pantalones.html"><li class="navLi">Pantalones</li></a>
+                <a href="./botines.html"><li class="navLi">Botines</li></a>
             </ul>
         </div>
 
         <div class="logout">
-            <p>Editar</p>
+            <a href="./updateProduct.html"><button>Editar</button></a>
             <form action="/logout" method="post">
                 <button type="submit">Logout</button>
             </form>

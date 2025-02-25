@@ -9,6 +9,7 @@ const productController = {
             const product = await Product.create({
                 titulo: req.body.titulo,
                 categoria: req.body.categoria,
+                url: req.body.url,
                 precio: req.body.precio
             })
     
@@ -70,6 +71,7 @@ const productController = {
                 const product = await Product.findByIdAndUpdate(req.params._id, {
                     titulo: req.body.titulo,
                     categoria: req.body.categoria,
+                    url: req.body.url,
                     precio: req.body.precio
                 }, { new: true })
 

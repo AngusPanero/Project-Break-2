@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <body>
+        <nav class="nav">
+            <div class="logo">
+                <a href="./dashboard.html"><img class="logoAdidas" src="./img/Logo/Adidas_Logo.svg" alt="logo"></a>
+            </div>
+    
+            <div class="navMenu">
+                <ul class="navUl">
+                    <a href="./dashboard.html"><li class="navLi">Inicio</li></a>
+                    <a href="./camisetas.html"><li class="navLi">Camisetas</li></a>
+                    <a href="./pantalones.html"><li class="navLi">Pantalones</li></a>
+                    <a href="./botines.html"><li class="navLi">Botines</li></a>
+                </ul>
+            </div>
+            
+    
+            <div class="logout">
+                <a href="./createProduct.html"><button class="boton">Crear Producto</button></a>
+                <form action="/logout" method="post">
+                    <button class="boton" type="submit">Logout</button>
+                </form>
+            </div>
+        </nav>  
+        
+        <main>
+    
+            <div id="cargarProductosHTML">
+            </div>
+    
+            <div id="updateProductosHTML">
+            </div>
+        </main>
+    
+        <footer>
+            <!--Logos de Marcas en Grises-->
+        </footer>
+
+        <script>
+            const cargarProductos = async () => {
+                try {
+                    const response = await fetch("/id");
+    
+                    if(!response.ok){
+                        throw new Error(`Error en la Petición`, Error)
+                    }
+                    const data = await response.json()
+                    console.log("DATA", data);
+                    
+                    const HTML = document.getElementById("cargarProductosHTML");
+    
+                    const productosFiltrados = data.filter(p => p.categoria === "Camisetas");
+
+                    productosFiltrados.forEach((p) => {
+                        HTML.innerHTML += `
+                            <div class="cadaProductoId"> 
+                                <p><strong>ID:</strong> ${p._id}</p>
+                                <div class="botonesUpdate">
+                                    <a href="./id-html"><button class="editar">Editar</button></a>
+                                    <a href="./id-html"><button class="eliminar">Eliminar</button></a>
+                                </div>
+                                <img class="imgUpdate" src="${p.url}" alt="fotoProducto">      
+                                <p>${p.titulo}</p>
+                                <p>${p.categoria}</p>
+                                <p>$${p.precio}</p>
+                            </div>`;
+});
+                    
+                }catch(error) {
+                    throw new Error(`Error en la Solicitud`)
+                }
+            }
+            document.addEventListener("DOMContentLoaded", cargarProductos);
+        </script>
+</body>
+</html>
