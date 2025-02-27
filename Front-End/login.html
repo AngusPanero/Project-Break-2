@@ -4,19 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
-    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Project Break 2 - Adidas</title>
 </head>
 <body>
-    <h1>Login</h1>
-    <form id="loginForm" method="post">
-        <input type="email" name="email" id="email" placeholder="Introduce tu Email" required>
-        <input type="password" name="password" id="password" placeholder="Introduce tu Contraseña" required>
-        <button type="submit" id="loginButton">Iniciar Sesión</button>
-    </form>
-    <div id="mensajeLogin">
-        <!--Poner Mensaje-->
-    </div>
+    <nav class="navLogin">
+        <div class="logo">
+            <img class="logoAdidas" src="./img/Logo/Adidas_Logo.svg" alt="logo">
+        </div>
+
+        <div><h1 class="h1Login">Inicie Sesión Para Acceder al Dashboard</h1></div>
+
+        <form id="loginForm" method="post">
+            <input type="email" name="email" id="email" placeholder="Introduce tu Email" required>
+            <input type="password" name="password" id="password" placeholder="Introduce tu Contraseña" required>
+            <button type="submit" id="loginButton">Iniciar Sesión</button>
+        </form>
+    </nav>
+
+    <main>
+    </main>
 
     <script type="module" src="/firebase.js"></script>
+    <script>
+        const imagenesDeFondo = [
+            "./img/banner/copa.jpg",
+            "./img/banner/banner2-alrihla.jpg",
+            "./img/banner/botines.jpg"
+            ];
+
+        let indiceActual = 0;
+
+        const funcionCambiarFondo = () => {
+            const mainElement = document.querySelector("main");
+            mainElement.style.backgroundImage = `url(${imagenesDeFondo[indiceActual]})`;
+
+            indiceActual = (indiceActual + 1) % imagenesDeFondo.length;
+            };
+
+        funcionCambiarFondo();
+        setInterval(funcionCambiarFondo, 6000);
+    </script>
 </body>
 </html>
