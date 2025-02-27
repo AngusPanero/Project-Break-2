@@ -66,7 +66,7 @@
                         <button class="editar">Editar</button>
                         <a href="./id-html"><button class="eliminar">Eliminar</button></a>
                     </div>
-                    <img class="imgUpdate" src="${p.url}" alt="fotoProducto">      
+                    <img class="imgUpdate" src="${p.url}" alt="fotoProducto">   
                     <p>${p.titulo}</p>
                     <p>${p.categoria}</p>
                     <p>$${p.precio}</p>
@@ -82,17 +82,22 @@
             if(evento.target.classList.contains("editar")){
                 const targetCont = evento.target.closest(".cadaProductoId")
                 const id = targetCont.querySelector("p:nth-of-type(1)").textContent.replace("ID: ", "").trim()
+                const titulo = targetCont.querySelector("p:nth-of-type(2)").textContent
+                const categotia = targetCont.querySelector("p:nth-of-type(3)").textContent
+                const precio = targetCont.querySelector("p:nth-of-type(4)").textContent
+                const imagen = targetCont.querySelector("img").textContent.src
 
-                const productoEvento = { id } 
-
+                const productoEvento = { id, titulo, categotia, precio, imagen } 
+                localStorage.setItem("productoSeleccionado", JSON.stringify(productoEvento));
+                
                 const HTML = document.getElementById("updateProductosHTML");
                 targetCont.innerHTML = `<br><br><br><br>
-                <div class="update">
-                    <form action="/update/${id}" id="updateForm" method="post">
-                        <input type="text" name="titulo" id="titulo" placeholder="Nuevo Título del Producto">
-                        <input type="text" name="categoria" id="categoria" placeholder="Nueva Categoría del Producto">
+                <div>
+                    <form class="update" action="/update/${id}" id="updateForm" method="post">
+                        <input type="text" name="titulo" id="titulo" placeholder="Nuevo Título">
+                        <input type="text" name="categoria" id="categoria" placeholder="Nueva Categoría">
                         <input type="text" name="url" id="url" placeholder="Url del Producto">
-                        <input type="number" name="precio" id="precio" placeholder="Nuevo Precio del Producto">
+                        <input type="number" name="precio" id="precio" placeholder="Nuevo Precio">
                         <button type="submit" id="productSubmit">Actualizar Producto</button>
                     </form>
                 </div>    
@@ -160,3 +165,4 @@
 
 </body>
 </html>
+

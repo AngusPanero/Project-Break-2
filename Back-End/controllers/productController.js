@@ -29,6 +29,16 @@ const productController = {
             }
         },
 
+        individual: async (req, res) => {
+            try {
+                res.sendFile(path.join(__dirname, "../../Front-End", "individual.html"))
+        
+            } catch (error) {
+                console.error("ERROR", error);
+                res.status(404).send({ message: "500 - Página no Encontrada" });
+            }
+        },
+
         findAll: async (req, res) => {
             try {
                 const productos = await Product.find(); // Busca todos los productos en la DB

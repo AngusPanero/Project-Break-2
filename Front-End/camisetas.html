@@ -48,6 +48,7 @@
         </footer>
 
         <script>
+
             const cargarProductos = async () => {
                 try {
                     const response = await fetch("/id");
@@ -66,8 +67,7 @@
                         HTML.innerHTML += `
                             <div class="cadaProductoId"> 
                                 <p><strong>ID:</strong> ${p._id}</p>
-                                
-                                <img class="imgUpdate" src="${p.url}" alt="fotoProducto">      
+                                <a href="./individual"><img class="imgUpdate" src="${p.url}" alt="fotoProducto"></a>  
                                 <p>${p.titulo}</p>
                                 <p>${p.categoria}</p>
                                 <p>$${p.precio}</p>
@@ -79,6 +79,23 @@
                 }
             }
             document.addEventListener("DOMContentLoaded", cargarProductos);
+
+            document.addEventListener("click", (evento) => {
+                if (evento.target.classList.contains("imgUpdate")) {
+                    const targetCont = evento.target.closest(".cadaProductoId");
+
+                    const id = targetCont.querySelector("p:nth-of-type(1)").textContent.replace("ID: ", "").trim();
+                    const titulo = targetCont.querySelector("p:nth-of-type(2)").textContent;
+                    const categoria = targetCont.querySelector("p:nth-of-type(3)").textContent;
+                    const precio = targetCont.querySelector("p:nth-of-type(4)").textContent;
+                    const imagen = targetCont.querySelector("img").getAttribute("src");
+
+                    const productoEvento = { id, titulo, categoria, precio, imagen };
+                    localStorage.setItem("productoSeleccionado", JSON.stringify(productoEvento));
+
+                    console.log("Producto seleccionado:", productoEvento);
+                }
+            });
         </script>
 </body>
 </html>

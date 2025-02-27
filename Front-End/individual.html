@@ -46,35 +46,28 @@
         <!--Logos de Marcas en Grises-->
     </footer>
 
-<script>
-        const cargarProductos = async () => {
-            try {
-                const response = await fetch("/id");
-
-                if(!response.ok){
-                    throw new Error(`Error en la Petición`, Error)
-                }
-                const data = await response.json()
-                console.log("DATA", data);
-                
+    <script>
+        const cargarProductos = async () => {    
                 const HTML = document.getElementById("cargarProductosHTML");
 
-            data.forEach((p) => HTML.innerHTML+=`
-                <div class="cadaProductoId"> 
-                    <p><strong>ID:</strong> ${p._id}</p>
-                    
-                    <a href="./individual"><img class="imgUpdate" src="${p.url}" alt="fotoProducto"></a>     
-                    <p>${p.titulo}</p>
-                    <p>${p.categoria}</p>
-                    <p>$${p.precio}</p>
-                </div>`)
+                const productoSeleccionado = JSON.parse(localStorage.getItem("productoSeleccionado"))
+                const evento = {
+                    id: productoSeleccionado.id, 
+                    titulo: productoSeleccionado.titulo,
+                    categoria: productoSeleccionado.categoria,
+                    precio: productoSeleccionado.precio,
+                    imagen: productoSeleccionado.imagen
+                }
                 
-            }catch(error) {
-                throw new Error(`Error en la Solicitud`)
-            }
-        }
+                HTML.innerHTML = `
+                    <div class="cadaProductoId"> 
+                        <p><strong>ID:</strong> ${evento.id}</p>
+                        <a href="./individual"><img class="imgUpdate" src="${evento.imagen}" alt="fotoProducto"></a>      
+                        <p>${evento.titulo}</p>
+                        <p>${evento.categoria}</p>
+                        <p>$${evento.precio}</p>
+                    </div>`;
+                    };
+            
         document.addEventListener("DOMContentLoaded", cargarProductos);
-        </script>
-
-</body>
-</html>
+    </script>        
