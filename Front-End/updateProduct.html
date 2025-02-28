@@ -63,7 +63,7 @@
                 <div class="cadaProductoId"> 
                     <p><strong>ID:</strong> ${p._id}</p>
                     <div class="botonesUpdate">
-                        <button class="editar">Editar</button>
+                        <a href="./id-html"><button class="editar">Editar</button></a>
                         <a href="./id-html"><button class="eliminar">Eliminar</button></a>
                     </div>
                     <img class="imgUpdate" src="${p.url}" alt="fotoProducto">   
@@ -104,7 +104,7 @@
                 `
                 
         document.getElementById("updateForm").addEventListener("submit", async (e) => {
-            e.preventDefault(); // Evitar recarga de página
+            e.preventDefault();
 
             const nuevoTitulo = document.getElementById("titulo").value.trim();
             const nuevaCategoria = document.getElementById("categoria").value.trim();
@@ -119,8 +119,8 @@
                         },
                         body: JSON.stringify({ titulo: nuevoTitulo, categoria: nuevaCategoria, precio: nuevoPrecio }) 
                     });
-                    
-                    if (!response.ok) {
+
+                    if(!response.ok) {
                         throw new Error("Error en la Solicitud");
                     }
 

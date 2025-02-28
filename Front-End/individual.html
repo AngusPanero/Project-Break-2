@@ -60,12 +60,13 @@
                 }
                 
                 HTML.innerHTML = `
-                    <div class="cadaProductoId"> 
-                        <p><strong>ID:</strong> ${evento.id}</p>
-                        <a href="./individual"><img class="imgUpdate" src="${evento.imagen}" alt="fotoProducto"></a>      
-                        <p>${evento.titulo}</p>
-                        <p>${evento.categoria}</p>
-                        <p>$${evento.precio}</p>
+                    <div class="productoIndividual"> 
+                        <a href="./individual"><img class="imgIndividual" src="${evento.imagen}" alt="fotoProducto"></a>
+                        <div class="datosIndividual">
+                            <p><strong>ID:</strong> ${evento.id}</p>      
+                            <p>${evento.titulo}</p>
+                            <p>${evento.categoria}</p>
+                            <p>${evento.precio}</p>
                     </div>`;
                     };
             
