@@ -10,7 +10,8 @@ const productController = {
                 titulo: req.body.titulo,
                 categoria: req.body.categoria,
                 url: req.body.url,
-                precio: req.body.precio
+                precio: req.body.precio,
+                descripcion: req.body.descripcion
             })
     
         } catch (error) {
@@ -60,7 +61,7 @@ const productController = {
             }
         },
 
-        findBy: async (req, res) => { // Get a Post??
+        findBy: async (req, res) => {
             try {
                 const id = await Product.findById(req.params._id)
                 res.status(200).send(id);
@@ -82,7 +83,8 @@ const productController = {
                     titulo: req.body.titulo,
                     categoria: req.body.categoria,
                     url: req.body.url,
-                    precio: req.body.precio
+                    precio: req.body.precio,
+                    descripcion: req.body.descripcion
                 }, { new: true })
 
                 if (!product) {

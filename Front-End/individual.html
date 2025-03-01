@@ -56,18 +56,34 @@
                     titulo: productoSeleccionado.titulo,
                     categoria: productoSeleccionado.categoria,
                     precio: productoSeleccionado.precio,
-                    imagen: productoSeleccionado.imagen
+                    imagen: productoSeleccionado.imagen,
                 }
                 
-                HTML.innerHTML = `
+                try {
+                    const response = await fetch(`id/${evento.id}`)
+                    if(!response){
+                        throw new Error(`Error en la Peticion`)
+                    }
+                    const data = await response.json()
+                    console.log("Data Individual", data);
+                    
+
+                    HTML.innerHTML = `
                     <div class="productoIndividual"> 
-                        <a href="./individual"><img class="imgIndividual" src="${evento.imagen}" alt="fotoProducto"></a>
+                        <img class="imgIndividual" src="${data.url}" alt="fotoProducto">
                         <div class="datosIndividual">
                             <p><strong>ID:</strong> ${evento.id}</p>      
-                            <p>${evento.titulo}</p>
-                            <p>${evento.categoria}</p>
-                            <p>${evento.precio}</p>
+                            <p>${data.titulo}</p>
+                            <p>${data.categoria}</p>
+                            <p>$${data.precio},00 - Impuestos Incluídos</p>
+                            <p class="pIndividual">${data.descripcion}</p>
                     </div>`;
+
+                }catch(error) {
+                    console.log(`Error en la Solicitud, ${error}`);
+                    
+                }
+                
                     };
             
         document.addEventListener("DOMContentLoaded", cargarProductos);

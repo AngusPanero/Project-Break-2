@@ -4,7 +4,8 @@ const productSchema = new mongoose.Schema({
     titulo: String,
     categoria:  String,
     url: String,
-    precio:  Number
+    precio:  Number,
+    descripcion: String
 }, {Timestamp: true});
 
 const product = mongoose.model("producto", productSchema);

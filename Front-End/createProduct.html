@@ -39,6 +39,7 @@
             <input type="text" name="titulo" id="titulo" placeholder="Título al Producto" required>
             <input type="text" name="categoria" id="categoria" placeholder="Categoría del Producto" required>
             <input type="text" name="url" id="url" placeholder="Url del Producto" required>
+            <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion" required>
             <input type="number" name="precio" id="precio" placeholder="Precio del Producto" required>
             <button type="submit" id="productSubmit">Crear Producto</button>
         </form>
@@ -56,13 +57,14 @@
             const categoria = document.getElementById("categoria").value;
             const url = document.getElementById("url").value;
             const precio = document.getElementById("precio").value;
+            const descripcion = document.getElementById("descripcion").value
 
             const response = await fetch("/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ titulo, categoria, precio, url }) 
+                body: JSON.stringify({ titulo, categoria, precio, url, descripcion }) 
             });
 
             const data = await response.json();

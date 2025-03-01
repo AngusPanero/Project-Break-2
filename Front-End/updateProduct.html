@@ -98,8 +98,9 @@
                         <input type="text" name="titulo" id="titulo" placeholder="Nuevo Título">
                         <input type="text" name="categoria" id="categoria" placeholder="Nueva Categoría">
                         <input type="text" name="url" id="url" placeholder="Url del Producto">
+                        <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion">
                         <input type="number" name="precio" id="precio" placeholder="Nuevo Precio">
-                        <button type="submit" id="productSubmit">Actualizar Producto</button>
+                        <a href="./id-html"><button type="submit" id="productSubmit">Actualizar Producto</button></a>
                     </form>
                 </div>    
                 `
@@ -110,6 +111,7 @@
             const nuevoTitulo = document.getElementById("titulo").value.trim();
             const nuevaCategoria = document.getElementById("categoria").value.trim();
             const nuevaUrl = document.getElementById("url").value;
+            const nuevaDescripcion = document.getElementById("descripcion").value;
             const nuevoPrecio = parseFloat(document.getElementById("precio").value.trim());
 
                 try {
@@ -118,7 +120,7 @@
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ titulo: nuevoTitulo, categoria: nuevaCategoria, precio: nuevoPrecio }) 
+                        body: JSON.stringify({ titulo: nuevoTitulo, categoria: nuevaCategoria, precio: nuevoPrecio, descripcion: nuevaDescripcion }) 
                     });
 
                     if(!response.ok) {
@@ -126,8 +128,6 @@
                     }
 
                     const data = await response.json();
-                    
-                    cargarProductos();
 
                 } catch (error) {
                     console.error("Error en la Solicitud:", error);
