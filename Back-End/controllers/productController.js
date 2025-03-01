@@ -11,7 +11,8 @@ const productController = {
                 categoria: req.body.categoria,
                 url: req.body.url,
                 precio: req.body.precio,
-                descripcion: req.body.descripcion
+                descripcion: req.body.descripcion,
+                talle: req.body.talle
             })
     
         } catch (error) {
@@ -84,7 +85,8 @@ const productController = {
                     categoria: req.body.categoria,
                     url: req.body.url,
                     precio: req.body.precio,
-                    descripcion: req.body.descripcion
+                    descripcion: req.body.descripcion,
+                    talle: req.body.talle
                 }, { new: true })
 
                 if (!product) {

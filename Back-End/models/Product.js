@@ -5,7 +5,11 @@ const productSchema = new mongoose.Schema({
     categoria:  String,
     url: String,
     precio:  Number,
-    descripcion: String
+    descripcion: String,
+    talle: {
+        type: String,
+        enum: ["xs", "s", "m", "l", "xl"]
+    }
 }, {Timestamp: true});
 
 const product = mongoose.model("producto", productSchema);
