@@ -63,7 +63,7 @@
                 <div class="cadaProductoId"> 
                     <p><strong>ID:</strong> ${p._id}</p>
                     <div class="botonesUpdate">
-                        <a href="./id-html"><button class="editar">Editar</button></a>
+                        <button class="editar">Editar</button>
                         <a href="./id-html"><button class="eliminar">Eliminar</button></a>
                     </div>
                     <img class="imgUpdate" src="${p.url}" alt="fotoProducto">   
@@ -79,6 +79,7 @@
         document.addEventListener("DOMContentLoaded", cargarProductos);
         
         document.addEventListener("click", async (evento) => {
+            
             if(evento.target.classList.contains("editar")){
                 const targetCont = evento.target.closest(".cadaProductoId")
                 const id = targetCont.querySelector("p:nth-of-type(1)").textContent.replace("ID: ", "").trim()
@@ -125,7 +126,6 @@
                     }
 
                     const data = await response.json();
-                    alert(data.message);
                     
                     cargarProductos();
 
