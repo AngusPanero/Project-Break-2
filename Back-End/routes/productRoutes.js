@@ -18,11 +18,11 @@ routerProduct.get("/individual", productController.individual)
 
 routerProduct.get("/id", productController.findAll)
 
-routerProduct.get("/id-html", productController.updateView)
+routerProduct.get("/id-html", checkAuth, productController.updateView)
 
 routerProduct.get("/id/:_id", productController.findBy)
 
-routerProduct.put("/update/:_id", productController.update)
+routerProduct.put("/update/:_id", checkAuth, productController.update)
 
 routerProduct.delete("/delete/:_id", checkAuth, productController.deleteProduct)
 

@@ -18,14 +18,6 @@ router.post("/login", authController.login)
 
 router.get("/dashboard", checkAuth, authController.dashboardView)
 
-router.get("/productosAdmin", checkAuth, authController.productosAdmin)
-
-router.get("/camisetasAdmin", checkAuth, authController.camisetasAdmin)
-
-router.get("/pantalonesAdmin", checkAuth, authController.pantalonesAdmin)
-
-router.get("/botinesAdmin", checkAuth, authController.botinesAdmin)
-
 router.post('/logout', authController.logout)
 
 module.exports = router;

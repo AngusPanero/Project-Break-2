@@ -52,22 +52,6 @@ const authController = {
         res.sendFile(path.join(__dirname, "../../Front-End", "dashboard.html"))
     },
 
-    productosAdmin: (req, res) => {
-        res.sendFile(path.join(__dirname, "../../Front-End", "productosAdmin.html"))
-    },
-
-    camisetasAdmin: (req, res) => {
-        res.sendFile(path.join(__dirname, "../../Front-End", "camisetasAdmin.html"))
-    },
-
-    pantalonesAdmin: (req, res) => {
-        res.sendFile(path.join(__dirname, "../../Front-End", "pantalonesAdmin.html"))
-    },
-
-    botinesAdmin: (req, res) => {
-        res.sendFile(path.join(__dirname, "../../Front-End", "botinesAdmin.html"))
-    },
-
     logout: (req, res) => {
         res.clearCookie('token')
         res.redirect('/login')
