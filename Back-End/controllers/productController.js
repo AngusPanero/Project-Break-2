@@ -4,7 +4,7 @@ const path = require("path");
 const productController = {
     index: async (req, res) => {
         try {
-            res.sendFile(path.join(__dirname, "../../Front-End", "dashboard.html"))
+            res.sendFile(path.join(__dirname, "../../Front-End", "index.html"))
     
         } catch (error) {
             console.error("ERROR", error);
@@ -52,7 +52,7 @@ const productController = {
 
         findAll: async (req, res) => {
             try {
-                const productos = await Product.find(); // Busca todos los productos en la DB
+                const productos = await Product.find();
                 res.status(200).json(productos);
         
             } catch (error) {

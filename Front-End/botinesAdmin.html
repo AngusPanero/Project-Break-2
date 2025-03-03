@@ -13,22 +13,24 @@
     <body>
         <nav class="nav">
             <div class="logo">
-                <a href="./index.html"><img class="logoAdidas" src="./img/Logo/Adidas_Logo.svg" alt="logo"></a>
+                <a href="./indexAdmin"><img class="logoAdidas" src="./img/Logo/Adidas_Logo.svg" alt="logo"></a>
             </div>
     
             <div class="navMenu">
                 <ul class="navUl">
-                    <a href="./productos.html"><li class="navLi">Productos</li></a>
-                    <a href="./camisetas.html"><li class="navLi">Camisetas</li></a>
-                    <a href="./pantalones.html"><li class="navLi">Pantalones</li></a>
-                    <a href="./botines.html"><li class="navLi">Botines</li></a>
+                    <a href="./productosAdmin"><li class="navLi">Productos</li></a>
+                    <a href="./camisetasAdmin"><li class="navLi">Camisetas</li></a>
+                    <a href="./pantalonesAdmin"><li class="navLi">Pantalones</li></a>
+                    <a href="./botinesAdmin"><li class="navLi">Botines</li></a>
                 </ul>
             </div>
             
     
             <div class="logout">
-                <a href="./login.html"><button class="boton">Iniciar Sesión</button></a>
-                <a href="./register.html"><button class="boton">Registrarse</button></a>
+                <a href="./updateProduct.html"><button>Editar</button></a>
+                <form action="/logout" method="post">
+                    <button type="submit">Logout</button>
+                </form>
             </div>
         </nav>  
         
@@ -58,19 +60,19 @@
                     
                     const HTML = document.getElementById("cargarProductosHTML");
     
-                    const productosFiltrados = data.filter(p => p.categoria === "Pantalones");
+                    const productosFiltrados = data.filter(p => p.categoria === "Botines");
 
                     productosFiltrados.forEach((p) => {
                         HTML.innerHTML += `
                             <div class="cadaProductoId"> 
                                 <p><strong>ID:</strong> ${p._id}</p>
-                        
-                                <a href="./individual"><img class="imgUpdate" src="${p.url}" alt="fotoProducto"></a>      
+                                
+                                <a href="./individualAdmin.html"><img class="imgUpdate" src="${p.url}" alt="fotoProducto"></a>      
                                 <p>${p.titulo}</p>
                                 <p>${p.categoria}</p>
                                 <p>$${p.precio}</p>
                             </div>`;
-                });
+});
                     
                 }catch(error) {
                     throw new Error(`Error en la Solicitud`)
