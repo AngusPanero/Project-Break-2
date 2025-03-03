@@ -2,6 +2,15 @@ const Product = require("../models/Product")
 const path = require("path");
 
 const productController = {
+    index: async (req, res) => {
+        try {
+            res.sendFile(path.join(__dirname, "../../Front-End", "dashboard.html"))
+    
+        } catch (error) {
+            console.error("ERROR", error);
+            res.status(404).send({ message: "500 - Página no Encontrada" });
+        }
+    },
 
     create: async (req, res) => {
         try {

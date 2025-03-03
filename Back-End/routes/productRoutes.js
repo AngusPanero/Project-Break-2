@@ -8,13 +8,15 @@ const checkAuth = require("../middlewares/authMiddleware");
 const routerProduct = express.Router();
 require("dotenv").config()
 
+routerProduct.get("/", checkAuth, productController.index)
+
 routerProduct.post("/create", checkAuth, productController.create)
 
 routerProduct.get("/create", checkAuth, productController.htmlCreateView)
 
-routerProduct.get("/individual", checkAuth, productController.individual)
+routerProduct.get("/individual", productController.individual)
 
-routerProduct.get("/id", checkAuth, productController.findAll)
+routerProduct.get("/id", productController.findAll)
 
 routerProduct.get("/id-html", checkAuth, productController.updateView)
 
